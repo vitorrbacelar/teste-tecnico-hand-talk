@@ -6,7 +6,8 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "postinstall": "patch-package"
   },
   "dependencies": {
     "@react-navigation/native": "^7.0.14",
@@ -15,6 +16,7 @@
     "expo": "~52.0.25",
     "expo-gl": "^15.0.3",
     "expo-status-bar": "~2.0.1",
+    "expo-three": "^8.0.0",
     "firebase": "^11.1.0",
     "react": "18.3.1",
     "react-hook-form": "^7.54.2",
@@ -25,10 +27,12 @@
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
+    "@babel/plugin-transform-react-jsx": "^7.25.9",
     "@types/react": "~18.3.12",
     "@types/three": "^0.172.0",
     "@typescript-eslint/eslint-plugin": "^8.19.1",
     "@typescript-eslint/parser": "^8.19.1",
+    "babel-plugin-module-resolver": "^5.0.2",
     "eslint": "^9.18.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-define-config": "^2.1.0",
@@ -38,6 +42,7 @@
     "eslint-plugin-react": "^7.37.3",
     "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-react-native": "^5.0.0",
+    "patch-package": "^8.0.0",
     "prettier": "^3.4.2",
     "typescript": "^5.3.3"
   },
