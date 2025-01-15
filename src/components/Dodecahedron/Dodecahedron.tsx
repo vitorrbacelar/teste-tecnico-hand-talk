@@ -35,7 +35,7 @@ function Dodecahedron({ color, rotation, ...rest }: Props) {
   });
 
   return (
-    <mesh {...rest} position={[0, -2, 0]} scale={1} ref={dodecahedronMesh}>
+    <mesh {...rest} scale={1} ref={dodecahedronMesh}>
       <dodecahedronGeometry args={[0.7, 0]} />
       <meshStandardMaterial color={color} />
     </mesh>
