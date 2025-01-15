@@ -12,7 +12,7 @@ type Props = {
   color: string;
 } & MeshProps;
 
-function Cone({ color, ...rest }: Props) {
+function Cone({ color, rotation, ...rest }: Props) {
   const coneMesh =
     useRef<
       Mesh<
@@ -23,13 +23,19 @@ function Cone({ color, ...rest }: Props) {
     >(null);
 
   useFrame((_, delta) => {
-    coneMesh.current.rotation.x += delta;
-    coneMesh.current.rotation.y += delta;
-    coneMesh.current.rotation.z += delta;
+    if (coneMesh.current) {
+      const xRotation = rotation[0] * (Math.PI / 180);
+      const yRotation = rotation[1] * (Math.PI / 180);
+      const zRotation = rotation[2] * (Math.PI / 180);
+
+      coneMesh.current.rotation.x += xRotation * delta;
+      coneMesh.current.rotation.y += yRotation * delta;
+      coneMesh.current.rotation.z += zRotation * delta;
+    }
   });
 
   return (
-    <mesh {...rest} scale={1} ref={coneMesh}>
+    <mesh {...rest} position={[0, 0, 0]} scale={1} ref={coneMesh}>
       <coneGeometry args={[0.6, 1, 30]} />
       <meshStandardMaterial color={color} />
     </mesh>
