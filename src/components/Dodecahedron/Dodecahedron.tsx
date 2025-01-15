@@ -12,7 +12,7 @@ type Props = {
   color: string;
 } & MeshProps;
 
-function Dodecahedron({ color, ...rest }: Props) {
+function Dodecahedron({ color, rotation, ...rest }: Props) {
   const dodecahedronMesh =
     useRef<
       Mesh<
@@ -23,13 +23,19 @@ function Dodecahedron({ color, ...rest }: Props) {
     >(null);
 
   useFrame((_, delta) => {
-    dodecahedronMesh.current.rotation.x += delta;
-    dodecahedronMesh.current.rotation.y += delta;
-    dodecahedronMesh.current.rotation.z += delta;
+    if (dodecahedronMesh.current) {
+      const x = rotation[0] * (Math.PI / 180);
+      const y = rotation[1] * (Math.PI / 180);
+      const z = rotation[2] * (Math.PI / 180);
+
+      dodecahedronMesh.current.rotation.x += x * delta;
+      dodecahedronMesh.current.rotation.y += y * delta;
+      dodecahedronMesh.current.rotation.z += z * delta;
+    }
   });
 
   return (
-    <mesh {...rest} scale={1} ref={dodecahedronMesh}>
+    <mesh {...rest} position={[0, -2, 0]} scale={1} ref={dodecahedronMesh}>
       <dodecahedronGeometry args={[0.7, 0]} />
       <meshStandardMaterial color={color} />
     </mesh>
