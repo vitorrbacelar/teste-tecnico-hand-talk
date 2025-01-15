@@ -20,9 +20,9 @@ export default function LoginScreen() {
   });
 
   function handleLogin() {
-    handleSubmit(({ user, password }) => {
+    handleSubmit(async ({ user, password }) => {
       try {
-        loginUseCase.execute(user, password);
+        await loginUseCase.execute(user, password);
       } catch (error) {
         Alert.alert('Erro ao realizar login');
       }
