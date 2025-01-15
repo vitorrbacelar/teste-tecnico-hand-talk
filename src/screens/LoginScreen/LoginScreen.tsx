@@ -10,6 +10,9 @@ import TextInputWithLabel from '../../components/TextInputWithLabel/TextInputWit
 import { Controller, useForm } from 'react-hook-form';
 import { LoginUseCase } from '../../modules/domain/usecases/LoginUseCase';
 import { FirebaseAuthUserService } from '../../modules/data/FirebaseAuthUserService';
+import DefaultButton from '../../components/Button/Button';
+import { styles } from './styles';
+import { StatusBar } from 'expo-status-bar';
 
 const firebaseAuthUserService = new FirebaseAuthUserService();
 const loginUseCase = new LoginUseCase(firebaseAuthUserService);
@@ -30,55 +33,53 @@ export default function LoginScreen() {
   }
 
   return (
-    <KeyboardAvoidingView style={{ flex: 1, backgroundColor: 'white' }}>
-      <SafeAreaView style={{ flex: 1, margin: 30 }}>
-        <View>
-          <Text style={{ color: 'black' }}>Hand Talk</Text>
-          <View>
-            <Controller
-              name="user"
-              control={control}
-              render={({ field: { onChange, value, ref } }) => (
-                <TextInputWithLabel
-                  ref={ref}
-                  label="Login:"
-                  placeholder="usuário123"
-                  returnKeyType="next"
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                  keyboardType="default"
-                  onChangeText={text => setValue('user', text)}
-                  onChange={onChange}
-                  value={value}
-                  onEndEditing={() => setFocus('password')}
-                />
-              )}
-            />
+    <KeyboardAvoidingView style={{ flex: 1, backgroundColor: '#ececec' }}>
+      <SafeAreaView style={{ flex: 1, margin: 30, alignItems: 'center' }}>
+        <StatusBar style="dark" backgroundColor="#ececec" />
+        <Text style={{ color: 'black' }}>Hand Talk</Text>
+        <View style={styles.container}>
+          <Controller
+            name="user"
+            control={control}
+            render={({ field: { onChange, value, ref } }) => (
+              <TextInputWithLabel
+                ref={ref}
+                label="E-mail:"
+                placeholder="usuário123@exemplo.com"
+                returnKeyType="next"
+                autoCapitalize="none"
+                autoCorrect={false}
+                keyboardType="default"
+                onChangeText={text => setValue('user', text)}
+                onChange={onChange}
+                value={value}
+                onEndEditing={() => setFocus('password')}
+              />
+            )}
+          />
 
-            <Controller
-              name="password"
-              control={control}
-              render={({ field: { onChange, value, ref } }) => (
-                <TextInputWithLabel
-                  ref={ref}
-                  label="Senha:"
-                  placeholder="*******"
-                  returnKeyType="go"
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                  keyboardType="number-pad"
-                  secureTextEntry
-                  onChangeText={text => setValue('password', text)}
-                  onChange={onChange}
-                  value={value}
-                />
-              )}
-            />
-          </View>
-          <View>
-            <Button title="Entrar" onPress={handleLogin} />
-          </View>
+          <Controller
+            name="password"
+            control={control}
+            render={({ field: { onChange, value, ref } }) => (
+              <TextInputWithLabel
+                ref={ref}
+                label="Senha:"
+                placeholder="*******"
+                returnKeyType="go"
+                autoCapitalize="none"
+                autoCorrect={false}
+                keyboardType="number-pad"
+                secureTextEntry
+                onChangeText={text => setValue('password', text)}
+                onChange={onChange}
+                value={value}
+              />
+            )}
+          />
         </View>
+
+        <DefaultButton title="Entrar" onPress={handleLogin} />
       </SafeAreaView>
     </KeyboardAvoidingView>
   );
