@@ -12,7 +12,7 @@ type Props = {
   color: string;
 } & MeshProps;
 
-function Cube({ color, rotation, ...rest }: Props) {
+function Cube({ color, rotation, scale, ...rest }: Props) {
   const cubeMesh =
     useRef<
       Mesh<
@@ -35,7 +35,7 @@ function Cube({ color, rotation, ...rest }: Props) {
   });
 
   return (
-    <mesh {...rest} position={[0, 2, 0]} scale={1} ref={cubeMesh}>
+    <mesh {...rest} scale={scale ? scale : 1} ref={cubeMesh}>
       <boxGeometry args={[1, 1, 1]} />
       <meshStandardMaterial color={color} />
     </mesh>
