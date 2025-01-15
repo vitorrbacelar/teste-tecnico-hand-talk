@@ -35,7 +35,7 @@ function Cone({ color, rotation, ...rest }: Props) {
   });
 
   return (
-    <mesh {...rest} position={[0, 0, 0]} scale={1} ref={coneMesh}>
+    <mesh {...rest} scale={1} ref={coneMesh}>
       <coneGeometry args={[0.6, 1, 30]} />
       <meshStandardMaterial color={color} />
     </mesh>
