@@ -1,7 +1,8 @@
 import { StyleSheet } from 'react-native';
+import colors from '../../constants/colors';
 
 export const styles = StyleSheet.create({
-  textInputContainer: { paddingVertical: 10 },
+  textInputContainer: { width: '80%' },
   textInput: {
     color: 'black',
     fontSize: 14,
@@ -15,14 +16,15 @@ export const styles = StyleSheet.create({
   },
   label: {
     color: 'black',
-    paddingBottom: 12,
+    paddingBottom: 2,
     fontWeight: 600,
+    marginLeft: 5,
   },
   onFocusInput: {
-    borderColor: 'orange',
+    borderColor: colors.main['orange'],
     borderWidth: 2,
   },
   onFocusLabel: {
-    color: 'orange',
+    color: colors.main['orange'],
   },
 });
