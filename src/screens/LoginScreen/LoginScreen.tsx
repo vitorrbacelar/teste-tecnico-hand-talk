@@ -6,9 +6,19 @@ import {
   View,
 } from 'react-native';
 import TextInputWithLabel from '../../components/TextInputWithLabel/TextInputWithLabel';
-import { Controller } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 
 export default function LoginScreen() {
+  const { control, handleSubmit, setValue, setFocus } = useForm({
+    defaultValues: { user: '', password: '' },
+  });
+
+  function onSubmit() {
+    handleSubmit(({ user, password }) => {
+      console.log(user, password);
+    })();
+  }
+
   return (
     <KeyboardAvoidingView style={{ flex: 1, backgroundColor: 'white' }}>
       <SafeAreaView style={{ flex: 1, margin: 30 }}>
@@ -17,22 +27,30 @@ export default function LoginScreen() {
           <View>
             <Controller
               name="user"
-              render={() => (
+              control={control}
+              render={({ field: { onChange, value, ref } }) => (
                 <TextInputWithLabel
+                  ref={ref}
                   label="Login:"
                   placeholder="usuário123"
                   returnKeyType="next"
                   autoCapitalize="none"
                   autoCorrect={false}
                   keyboardType="default"
+                  onChangeText={text => setValue('user', text)}
+                  onChange={onChange}
+                  value={value}
+                  onEndEditing={() => setFocus('password')}
                 />
               )}
             />
 
             <Controller
               name="password"
-              render={() => (
+              control={control}
+              render={({ field: { onChange, value, ref } }) => (
                 <TextInputWithLabel
+                  ref={ref}
                   label="Senha:"
                   placeholder="*******"
                   returnKeyType="go"
@@ -40,12 +58,15 @@ export default function LoginScreen() {
                   autoCorrect={false}
                   keyboardType="number-pad"
                   secureTextEntry
+                  onChangeText={text => setValue('password', text)}
+                  onChange={onChange}
+                  value={value}
                 />
               )}
             />
           </View>
           <View>
-            <Button title="Entrar" />
+            <Button title="Entrar" onPress={onSubmit} />
           </View>
         </View>
       </SafeAreaView>
