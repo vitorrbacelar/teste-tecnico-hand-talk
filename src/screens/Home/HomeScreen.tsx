@@ -8,15 +8,15 @@ import {
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { Canvas } from '@react-three/fiber';
-import Dodecahedron from '../../components/Dodecahedron/Dodecahedron';
-import Cone from '../../components/Cone/Cone';
-import Cube from '../../components/Cube/Cube';
 import { styles } from './styles';
 import { LoggedInStackParamList } from '../../routes/LoggedIn/LoggedInStack';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 import { FirebaseAuthUserService } from '../../modules/data/FirebaseAuthUserService';
 import { LogoutUseCase } from '../../modules/domain/usecases/LogoutUseCase';
+import { useObjectConfig } from '../../contexts/ObjectConfigContext';
+import { Object3DFactory } from '../../factory/Object3DFactory';
+import React from 'react';
 
 type HomeScreenNavigationProp = NativeStackNavigationProp<
   LoggedInStackParamList,
@@ -28,6 +28,8 @@ const logoutUseCase = new LogoutUseCase(firebaseAuthUserService);
 
 export default function HomeScreen() {
   const { height, width } = useWindowDimensions();
+
+  const { objectConfigs } = useObjectConfig();
 
   const navigation = useNavigation<HomeScreenNavigationProp>();
 
@@ -48,9 +50,11 @@ export default function HomeScreen() {
         <ambientLight />
         <directionalLight position={[5, 5, 5]} />
 
-        <Cube position={[0, 2, 0]} color={'red'} />
-        <Cone position={[0, 0, 0]} color={'blue'} />
-        <Dodecahedron position={[0, -2, 0]} color={'yellow'} />
+        {objectConfigs.map((objectConfig, index) => (
+          <React.Fragment key={objectConfig.shape + index}>
+            {Object3DFactory.create(objectConfig)}
+          </React.Fragment>
+        ))}
       </Canvas>
       <View style={styles.imageContainer}>
         <TouchableOpacity onPress={() => navigation.navigate('Config')}>
