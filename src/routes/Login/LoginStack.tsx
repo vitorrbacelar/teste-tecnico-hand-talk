@@ -2,6 +2,10 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import LoginScreen from '../../screens/LoginScreen/LoginScreen';
 
+export type LoginStackParamList = {
+  Login: undefined;
+};
+
 const Stack = createNativeStackNavigator();
 
 export default function LoginStack() {
