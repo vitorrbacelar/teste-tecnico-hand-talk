@@ -45,14 +45,14 @@ export default function HomeScreen() {
 
   return (
     <SafeAreaView style={styles.homeContainer}>
-      <StatusBar style="light" backgroundColor="orange" />
+      <StatusBar style="dark" backgroundColor="#ececec" />
       <Canvas style={{ height: canvasHeight, width }}>
         <ambientLight />
         <directionalLight position={[5, 5, 5]} />
 
         {objectConfigs.map((objectConfig, index) => (
           <React.Fragment key={objectConfig.shape + index}>
-            {Object3DFactory.create(objectConfig)}
+            {Object3DFactory.create(objectConfig, index)}
           </React.Fragment>
         ))}
       </Canvas>
