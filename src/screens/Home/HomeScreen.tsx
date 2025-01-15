@@ -1,4 +1,4 @@
-import { SafeAreaView, useWindowDimensions } from 'react-native';
+import { Image, SafeAreaView, useWindowDimensions, View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { Canvas } from '@react-three/fiber';
 import Dodecahedron from '../../components/Dodecahedron/Dodecahedron';
@@ -22,6 +22,17 @@ export default function HomeScreen() {
         <Cone position={[0, 0, 0]} color={'blue'} />
         <Dodecahedron position={[0, -2, 0]} color={'yellow'} />
       </Canvas>
+      <View style={styles.imageContainer}>
+        <Image
+          style={styles.image}
+          source={require('../../assets/gear-svgrepo-com.png')}
+        />
+        <View style={styles.line} />
+        <Image
+          style={styles.image}
+          source={require('../../assets/logout-2-svgrepo-com.png')}
+        />
+      </View>
     </SafeAreaView>
   );
 }
