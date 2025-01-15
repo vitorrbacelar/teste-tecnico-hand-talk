@@ -16,12 +16,18 @@ import { FirebaseAuthUserService } from '../../modules/data/FirebaseAuthUserServ
 import { LogoutUseCase } from '../../modules/domain/usecases/LogoutUseCase';
 import { useObjectConfig } from '../../contexts/ObjectConfigContext';
 import { Object3DFactory } from '../../factory/Object3DFactory';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { RealtimeDatabaseService } from '../../modules/data/RealtimeDatabaseService';
+import { GetUserConfigUseCase } from '../../modules/domain/usecases/GetUserConfigUseCase';
+import { auth } from '../../configs/firebase/firebaseConfig';
 
 type HomeScreenNavigationProp = NativeStackNavigationProp<
   LoggedInStackParamList,
   'Home'
 >;
+
+const realtimeDatabaseService = new RealtimeDatabaseService();
+const getUserConfigUseCase = new GetUserConfigUseCase(realtimeDatabaseService);
 
 const firebaseAuthUserService = new FirebaseAuthUserService();
 const logoutUseCase = new LogoutUseCase(firebaseAuthUserService);
@@ -29,7 +35,7 @@ const logoutUseCase = new LogoutUseCase(firebaseAuthUserService);
 export default function HomeScreen() {
   const { height, width } = useWindowDimensions();
 
-  const { objectConfigs } = useObjectConfig();
+  const { objectConfigs, setObjectConfigs } = useObjectConfig();
 
   const navigation = useNavigation<HomeScreenNavigationProp>();
 
@@ -42,6 +48,18 @@ export default function HomeScreen() {
       Alert.alert('Não foi possível realizar logout');
     }
   }
+
+  useEffect(() => {
+    (async () => {
+      const userConfig = await getUserConfigUseCase.execute(
+        auth.currentUser?.uid,
+      );
+
+      if (userConfig.objectsConfig) {
+        setObjectConfigs(userConfig.objectsConfig);
+      }
+    })();
+  }, []);
 
   return (
     <SafeAreaView style={styles.homeContainer}>
