@@ -1,4 +1,5 @@
 import {
+  Alert,
   Button,
   KeyboardAvoidingView,
   SafeAreaView,
@@ -7,15 +8,24 @@ import {
 } from 'react-native';
 import TextInputWithLabel from '../../components/TextInputWithLabel/TextInputWithLabel';
 import { Controller, useForm } from 'react-hook-form';
+import { LoginUseCase } from '../../modules/domain/usecases/LoginUseCase';
+import { FirebaseAuthUserService } from '../../modules/data/FirebaseAuthUserService';
+
+const firebaseAuthUserService = new FirebaseAuthUserService();
+const loginUseCase = new LoginUseCase(firebaseAuthUserService);
 
 export default function LoginScreen() {
   const { control, handleSubmit, setValue, setFocus } = useForm({
     defaultValues: { user: '', password: '' },
   });
 
-  function onSubmit() {
+  function handleLogin() {
     handleSubmit(({ user, password }) => {
-      console.log(user, password);
+      try {
+        loginUseCase.execute(user, password);
+      } catch (error) {
+        Alert.alert('Erro ao realizar login');
+      }
     })();
   }
 
@@ -66,7 +76,7 @@ export default function LoginScreen() {
             />
           </View>
           <View>
-            <Button title="Entrar" onPress={onSubmit} />
+            <Button title="Entrar" onPress={handleLogin} />
           </View>
         </View>
       </SafeAreaView>
