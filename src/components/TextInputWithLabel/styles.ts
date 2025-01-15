@@ -18,4 +18,11 @@ export const styles = StyleSheet.create({
     paddingBottom: 12,
     fontWeight: 600,
   },
+  onFocusInput: {
+    borderColor: 'orange',
+    borderWidth: 2,
+  },
+  onFocusLabel: {
+    color: 'orange',
+  },
 });
