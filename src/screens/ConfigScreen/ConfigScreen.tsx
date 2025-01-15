@@ -10,6 +10,9 @@ import { styles } from './styles';
 import ObjectEditModal from '../../components/ObjectEditModal/ObjectEditModal';
 import ObjectButton from '../../components/ObjectButton/ObjectButton';
 import DefaultButton from '../../components/Button/Button';
+import { RealtimeDatabaseService } from '../../modules/data/RealtimeDatabaseService';
+import { SetUserConfigUsecase } from '../../modules/domain/usecases/SetUserConfigUseCase';
+import { auth } from '../../configs/firebase/firebaseConfig';
 
 type ConfigScreenNavigationProp = NativeStackNavigationProp<
   LoggedInStackParamList,
@@ -22,6 +25,9 @@ type SubmitReturn = {
   rotation: string;
 };
 
+const realtimeDatabaseService = new RealtimeDatabaseService();
+const setUserConfigUseCase = new SetUserConfigUsecase(realtimeDatabaseService);
+
 export default function ConfigScreen() {
   const [showEditObjectModal, setShowEditObjectModal] = useState(false);
   const [selectedObject, setSelectedObject] = useState<number>(-1);
@@ -30,7 +36,7 @@ export default function ConfigScreen() {
 
   const { objectConfigs, setObjectConfigs } = useObjectConfig();
 
-  function handleSave(data: SubmitReturn) {
+  async function handleSave(data: SubmitReturn) {
     setObjectConfigs(prevObjectsConfigs => {
       const prevObjectsConfigsClone = [...prevObjectsConfigs];
 
@@ -45,6 +51,16 @@ export default function ConfigScreen() {
       };
 
       return prevObjectsConfigsClone;
+    });
+
+    await setUserConfigUseCase.execute(auth.currentUser?.uid, selectedObject, {
+      color: data.color,
+      shape: data.shape,
+      rotation: [
+        Number(data.rotation),
+        Number(data.rotation),
+        Number(data.rotation),
+      ],
     });
   }
 
