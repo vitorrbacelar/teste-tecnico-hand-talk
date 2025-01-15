@@ -23,7 +23,7 @@ export default function ObjectEditModal({
   onSave,
   defaultConfig,
 }: ObjectEditModalProps) {
-  const { control, handleSubmit, setValue, setFocus } = useForm<SubmitReturn>({
+  const { control, handleSubmit, setValue } = useForm<SubmitReturn>({
     defaultValues: {
       color: defaultConfig.color,
       shape: defaultConfig.shape,
