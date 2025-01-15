@@ -1,24 +1,19 @@
 import React, { createContext, ReactNode, useContext, useState } from 'react';
+import { Object3D } from '../modules/domain/entities/Object3D';
 
 type ObjectConfigProviderProps = {
   children: ReactNode;
 };
 
-type ObjectConfig = {
-  shape: 'cube' | 'cone' | 'dodecahedron';
-  color: string;
-  rotation: number;
-};
-
-const defaultObjectConfigs: ObjectConfig[] = [
-  { shape: 'cube', color: 'red', rotation: 90 },
-  { shape: 'cone', color: 'yellow', rotation: 45 },
-  { shape: 'dodecahedron', color: 'blue', rotation: 0 },
+const defaultObjectConfigs: Object3D[] = [
+  { shape: 'cube', color: 'red', rotation: [90, 90, 90] },
+  { shape: 'cone', color: 'yellow', rotation: [45, 45, 45] },
+  { shape: 'dodecahedron', color: 'blue', rotation: [0, 0, 0] },
 ];
 
 const ObjectConfigContext = createContext<{
-  objectConfigs: ObjectConfig[];
-  setObjectConfigs: React.Dispatch<React.SetStateAction<ObjectConfig[]>>;
+  objectConfigs: Object3D[];
+  setObjectConfigs: React.Dispatch<React.SetStateAction<Object3D[]>>;
 }>({
   objectConfigs: defaultObjectConfigs,
   setObjectConfigs: () => {},
