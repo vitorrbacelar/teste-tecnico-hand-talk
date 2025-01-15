@@ -16,7 +16,7 @@ export default function HomeScreen() {
       <StatusBar style="light" backgroundColor="orange" />
       <Canvas style={{ height: canvasHeight, width }}>
         <ambientLight />
-        <pointLight position={[10, 10, 10]} />
+        <directionalLight position={[5, 5, 5]} />
 
         <Cube position={[0, 2, 0]} color={'red'} />
         <Cone position={[0, 0, 0]} color={'blue'} />
