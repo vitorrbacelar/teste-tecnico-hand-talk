@@ -8,7 +8,7 @@ type ObjectConfigProviderProps = {
 const defaultObjectConfigs: Object3D[] = [
   { shape: 'cube', color: 'red', rotation: [90, 90, 90] },
   { shape: 'cone', color: 'yellow', rotation: [45, 45, 45] },
-  { shape: 'dodecahedron', color: 'blue', rotation: [0, 0, 0] },
+  { shape: 'dodecahedron', color: 'yellow', rotation: [0, 0, 0] },
 ];
 
 const ObjectConfigContext = createContext<{
