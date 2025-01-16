@@ -32,10 +32,6 @@ export default function ObjectEditModal({
     },
   });
 
-  const onSubmit = (data: SubmitReturn) => {
-    onSave(data);
-  };
-
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.label}>Tipo de Forma</Text>
@@ -90,7 +86,7 @@ export default function ObjectEditModal({
 
       <DefaultButton
         title="Salvar Configurações"
-        onPress={handleSubmit(onSubmit)}
+        onPress={handleSubmit(onSave)}
       />
       <DefaultButton title="Cancelar" outline onPress={onCloseModal} />
     </SafeAreaView>
