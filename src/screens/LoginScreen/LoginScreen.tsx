@@ -1,6 +1,7 @@
 import {
   Alert,
   Button,
+  Image,
   KeyboardAvoidingView,
   SafeAreaView,
   Text,
@@ -10,7 +11,7 @@ import TextInputWithLabel from '../../components/TextInputWithLabel/TextInputWit
 import { Controller, useForm } from 'react-hook-form';
 import { LoginUseCase } from '../../modules/domain/usecases/LoginUseCase';
 import { FirebaseAuthUserService } from '../../modules/data/FirebaseAuthUserService';
-import DefaultButton from '../../components/Button/Button';
+import DefaultButton from '../../components/DefaultButton/DefaultButton';
 import { styles } from './styles';
 import { StatusBar } from 'expo-status-bar';
 
@@ -36,7 +37,7 @@ export default function LoginScreen() {
     <KeyboardAvoidingView style={{ flex: 1, backgroundColor: '#ececec' }}>
       <SafeAreaView style={{ flex: 1, margin: 30, alignItems: 'center' }}>
         <StatusBar style="dark" backgroundColor="#ececec" />
-        <Text style={{ color: 'black' }}>Hand Talk</Text>
+        <Image source={require('../../assets/handtalk-removebg-preview.png')} />
         <View style={styles.container}>
           <Controller
             name="user"
