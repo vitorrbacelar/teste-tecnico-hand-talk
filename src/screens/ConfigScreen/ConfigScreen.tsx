@@ -9,7 +9,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { styles } from './styles';
 import ObjectEditModal from '../../components/ObjectEditModal/ObjectEditModal';
 import ObjectButton from '../../components/ObjectButton/ObjectButton';
-import DefaultButton from '../../components/Button/Button';
+import DefaultButton from '../../components/DefaultButton/DefaultButton';
 import { RealtimeDatabaseService } from '../../modules/data/RealtimeDatabaseService';
 import { SetUserConfigUsecase } from '../../modules/domain/usecases/SetUserConfigUseCase';
 import { auth } from '../../configs/firebase/firebaseConfig';
@@ -105,7 +105,11 @@ export default function ConfigScreen() {
       </View>
 
       <View style={styles.buttonContainer}>
-        <DefaultButton title="Voltar" onPress={() => navigation.goBack()} />
+        <DefaultButton
+          outline
+          title="Cancelar"
+          onPress={() => navigation.goBack()}
+        />
       </View>
 
       <Modal
@@ -120,6 +124,7 @@ export default function ConfigScreen() {
           defaultConfig={objectConfigs[selectedObject]}
           selectedObject={selectedObject}
           onSave={handleSave}
+          onCloseModal={() => setShowEditObjectModal(false)}
         />
       </Modal>
     </SafeAreaView>
