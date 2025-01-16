@@ -1,10 +1,10 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, SafeAreaView } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import { Picker } from '@react-native-picker/picker';
 import TextInputWithLabel from '../TextInputWithLabel/TextInputWithLabel';
 import { Object3D } from '../../modules/domain/entities/Object3D';
-import DefaultButton from '../Button/Button';
+import DefaultButton from '../DefaultButton/DefaultButton';
 import { styles } from './styles';
 
 type SubmitReturn = {
@@ -15,13 +15,14 @@ type SubmitReturn = {
 
 type ObjectEditModalProps = {
   onSave: (data: SubmitReturn) => void;
-  selectedObject: number;
   defaultConfig: Object3D;
+  onCloseModal: () => void;
 };
 
 export default function ObjectEditModal({
   onSave,
   defaultConfig,
+  onCloseModal,
 }: ObjectEditModalProps) {
   const { control, handleSubmit, setValue } = useForm<SubmitReturn>({
     defaultValues: {
@@ -36,7 +37,7 @@ export default function ObjectEditModal({
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Text style={styles.label}>Tipo de Forma</Text>
       <Controller
         name="shape"
@@ -91,6 +92,7 @@ export default function ObjectEditModal({
         title="Salvar Configurações"
         onPress={handleSubmit(onSubmit)}
       />
-    </View>
+      <DefaultButton title="Cancelar" outline onPress={onCloseModal} />
+    </SafeAreaView>
   );
 }
